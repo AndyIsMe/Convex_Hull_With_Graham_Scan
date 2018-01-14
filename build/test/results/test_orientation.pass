@@ -1,0 +1,42 @@
+---
+:source:
+  :path: test
+  :file: test_orientation.c
+:successes:
+- :test: test_orientation_expect_anticlockwise
+  :line: 14
+  :message: ''
+- :test: test_orientation_expect_clockwise
+  :line: 24
+  :message: ''
+- :test: test_orientation_expect_colinear
+  :line: 34
+  :message: ''
+- :test: test_
+  :line: 34
+  :message: ''
+:failures: []
+:ignores: []
+:counts:
+  :total: 4
+  :passed: 4
+  :failed: 0
+  :ignored: 0
+:stdout:
+- remaining last PV15
+- int 1
+- remaining last TARUC
+- int 2
+- remaining last Block D
+- int 3
+- point Block A
+- point remaining WangsaMaju
+- min 5
+- remaining last (null)
+- int 6
+- remaining last Block B
+- int 7
+- place 1 PV12
+- place 2 Block A
+- place 3 TARUC
+- TARUC
