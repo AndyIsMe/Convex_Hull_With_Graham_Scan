@@ -1,6 +1,6 @@
 ---
 :project:
-  :use_exceptions: false
+  :use_exceptions: true
   :use_mocks: true
   :compile_threads: 1
   :test_threads: 1
@@ -71,10 +71,10 @@
   :testfail: ".fail"
   :dependencies: ".d"
 :unity:
-  :vendor_path: C:/Student/Andy/Algoritm&Data_Structure/Convex_Hull_With_Graham_Scan/vendor/ceedling/vendor
+  :vendor_path: C:/Students/Andy/Data_Structure_And_Algorithm/Convex_Hull_With_Graham_Scan/vendor/ceedling/vendor
   :defines: []
 :cmock:
-  :vendor_path: C:/Student/Andy/Algoritm&Data_Structure/Convex_Hull_With_Graham_Scan/vendor/ceedling/vendor
+  :vendor_path: C:/Students/Andy/Data_Structure_And_Algorithm/Convex_Hull_With_Graham_Scan/vendor/ceedling/vendor
   :defines: []
   :includes: []
   :mock_prefix: mock_
@@ -83,6 +83,7 @@
   :plugins:
   - :ignore
   - :callback
+  - :cexception
   :treat_as:
     uint8: HEX8
     uint16: HEX16
@@ -93,7 +94,7 @@
   :verbosity: 3
   :unity_helper: false
 :cexception:
-  :vendor_path: C:/Student/Andy/Algoritm&Data_Structure/Convex_Hull_With_Graham_Scan/vendor/ceedling/vendor
+  :vendor_path: C:/Students/Andy/Data_Structure_And_Algorithm/Convex_Hull_With_Graham_Scan/vendor/ceedling/vendor
   :defines: []
 :test_runner:
   :includes: []

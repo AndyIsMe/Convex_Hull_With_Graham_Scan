@@ -4,4 +4,9 @@
 - nodehelper.h
 - nodeverifier.h
 - list.h
+- Insert.h
+- Exception.h
+- CExceptionConfig.h
+- Rotate.h
+- Node.h
 - build/temp/_test_orientation.c

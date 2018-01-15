@@ -8,8 +8,11 @@
   Unity.NumberOfTests++; \
   if (TEST_PROTECT()) \
   { \
+    CEXCEPTION_T e; \
+    Try { \
       setUp(); \
       TestFunc(); \
+    } Catch(e) { TEST_ASSERT_EQUAL_HEX32_MESSAGE(CEXCEPTION_NONE, e, "Unhandled Exception!"); } \
   } \
   if (TEST_PROTECT()) \
   { \
@@ -22,6 +25,7 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "CException.h"
 
 int GlobalExpectCount;
 int GlobalVerifyOrder;
@@ -33,7 +37,9 @@ extern void tearDown(void);
 extern void test_orientation_expect_anticlockwise(void);
 extern void test_orientation_expect_clockwise(void);
 extern void test_orientation_expect_colinear(void);
-extern void test_(void);
+extern void test_Convex_Hull_Create_Node(void);
+extern void test_Convex_Hull_Create_Node_Insert_To_Avl_For_Sorting(void);
+extern void test_Convex_Hull_Insert_To_Avl_For_Sorting(void);
 
 
 /*=======Test Reset Option=====*/
@@ -49,10 +55,12 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_orientation.c");
-  RUN_TEST(test_orientation_expect_anticlockwise, 14);
-  RUN_TEST(test_orientation_expect_clockwise, 24);
-  RUN_TEST(test_orientation_expect_colinear, 34);
-  RUN_TEST(test_, 34);
+  RUN_TEST(test_orientation_expect_anticlockwise, 22);
+  RUN_TEST(test_orientation_expect_clockwise, 32);
+  RUN_TEST(test_orientation_expect_colinear, 42);
+  RUN_TEST(test_Convex_Hull_Create_Node, 52);
+  RUN_TEST(test_Convex_Hull_Create_Node_Insert_To_Avl_For_Sorting, 73);
+  RUN_TEST(test_Convex_Hull_Insert_To_Avl_For_Sorting, 88);
 
   return (UnityEnd());
 }

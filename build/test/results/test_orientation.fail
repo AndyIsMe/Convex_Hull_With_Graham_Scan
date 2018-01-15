@@ -1,0 +1,31 @@
+---
+:source:
+  :path: test
+  :file: test_orientation.c
+:successes:
+- :test: test_orientation_expect_anticlockwise
+  :line: 22
+  :message: ''
+- :test: test_orientation_expect_clockwise
+  :line: 32
+  :message: ''
+- :test: test_orientation_expect_colinear
+  :line: 42
+  :message: ''
+- :test: test_Convex_Hull_Create_Node
+  :line: 52
+  :message: ''
+- :test: test_Convex_Hull_Insert_To_Avl_For_Sorting
+  :line: 88
+  :message: ''
+:failures:
+- :test: test_Convex_Hull_Create_Node_Insert_To_Avl_For_Sorting
+  :line: 81
+  :message: Expected 0x00000000006AF788 Was 0x00000000027A2450
+:ignores: []
+:counts:
+  :total: 6
+  :passed: 5
+  :failed: 1
+  :ignored: 0
+:stdout: []
