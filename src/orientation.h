@@ -4,6 +4,7 @@
 #include "list.h"
 #include "Node.h"
 #include "Insert.h"
+#include "Remove.h"
 
 #define clockwise 1
 #define anticlockwise 0
@@ -11,7 +12,7 @@
 
 
 #define avladdPoint(root,nodeToAdd)  avl_Insert(root,nodeToAdd,(Compare)CompareX)
-
+#define avlremovePoint(root,nodeToRemove)  *RemoveN(root,nodeToRemove,(Compare)CompareXToRemove)
 
 int distp(Point p ,Point q);
 int orientation(Point p,Point q,Point r);
@@ -24,7 +25,8 @@ int orientation(Point p,Point q,Point r);
 Point *pointCreate(int x,int y, char* place);
 Node *SearchMinX(Node **rootPtr);
 int CompareX(Point *p, Node *refNode);
-int TopHalf(Node **root,Point *point);
+LinkedList *TopHalf(Node **root);
 void createNodeForPoints(Node *node,Point *data);
+int CompareXToRemove(int x, Node *refNode);
 
 #endif // _ORIENTATION_H

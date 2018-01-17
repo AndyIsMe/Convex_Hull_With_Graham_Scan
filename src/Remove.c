@@ -57,14 +57,14 @@ Node *RemoveN(Node **rootPtr, int nodeToRemove)
   return RemoveN;
 }*/
 
-Node *RemoveN(Node **rootPtr, int nodeToRemove,Compare compareFunc)
+Node *RemoveN(Node **rootPtr, void *nodeToRemove,Compare compareFunc)
 {
   int heightstatus;
   Node *RemoveN = avl_Remove(rootPtr,nodeToRemove, &heightstatus,(Compare)compareFunc);
   return RemoveN;
 }
 
-Node *avl_Remove(Node **rootPtr, int nodeToRemove, int *heightstatus,Compare compareFunc)
+Node *avl_Remove(Node **rootPtr, void *nodeToRemove, int *heightstatus,Compare compareFunc)
 {
   if((*rootPtr) == NULL){
     return *rootPtr;

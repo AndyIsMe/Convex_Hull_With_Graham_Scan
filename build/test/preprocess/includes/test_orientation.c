@@ -7,6 +7,7 @@
 - Insert.h
 - Exception.h
 - CExceptionConfig.h
+- Remove.h
 - Rotate.h
 - Node.h
 - build/temp/_test_orientation.c

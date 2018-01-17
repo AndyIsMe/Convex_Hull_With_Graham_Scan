@@ -66,18 +66,45 @@ Point *pointCreate(int x,int y, char* place)
   return newPoint;
 }
 
-int TopHalf(Node **root,Point *data)
+LinkedList *TopHalf(Node **root)
 {
-  Node *smallestX;
+  int i ;
+  Node *smallestX,*nextSmallest;
   LinkedList *list;
-  Node *newNode = (Node *)malloc(sizeof(Node));
-  createNodeForPoints(newNode,data);
-  avladdPoint(root,newNode);
+  //Find the starting point and place it into a linkedlist
+  smallestX = SearchMinX(root);
+  Point *min = (smallestX->data);
+  Item *Initial = (Item *)malloc(sizeof(Item));
+  createItem(Initial,min,NULL);
+  ListInit(&list);
+  StackPush(&list,Initial);
+  int *PointToRemove = (int*)(uintptr_t)smallestX->data->x;
+  avlremovePoint(root,PointToRemove);
+  //Making sure 3 points are extracted
+  //With point(smallest X) push to linkedlist
+  //while other 2 points are extract out to do comparison
+  //To make Convex Hull possible
+  for(i = 0 ; i<2 ; i++)
+  {
+    nextSmallest = SearchMinX(root);
+    Point *nextMin = nextSmallest->data;
+    //PointToRemove = ((Point*)(smallestX->data));
+    //avlremovePoint(root,PointToRemove);
+  }
+  return list;
+
   // while(root != NULL)
-  // {
-  //   smallestX = SearchMinX(root);
-  //   Point *min = smallestX->data;
-  // }
+  //  {
+  //    smallestX = SearchMinX(root);
+  //    Point min = smallestX->data;
+  //    AddPointToList(data,smallestX);
+  //    Item *Initial = (Item *)malloc(sizeof(Item));
+  //    createItem(Initial, (void*)&min,NULL);
+  //    ListInit(&list);
+  //    StackPush(&list, Initial);
+  //    int *PointToRemove = (int*)((uintptr_t)(smallestX->data->x));
+  //    avlremovePoint(root,PointToRemove);
+  //  }
 }
 
 Node *SearchMinX(Node **rootPtr)
@@ -112,11 +139,27 @@ int CompareX(Point *p, Node *refNode)
 
   if (data2 < data1)
   {
-    return -1;
+    return 1;
   }
   else if(data2 > data1)
   {
+    return -1;
+  }
+  else
+    return 0;
+}
+
+int CompareXToRemove(int x, Node *refNode)
+{
+	int dataX = refNode->data->x;
+
+  if (x < dataX)
+  {
     return 1;
+  }
+  else if(x > dataX)
+  {
+    return -1;
   }
   else
     return 0;

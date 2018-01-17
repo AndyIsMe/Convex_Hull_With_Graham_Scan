@@ -15,6 +15,8 @@ struct LinkedList{
   int len;
 };
 
+#define StackPush(list,p)  listAdd(list,p);
+#define StackPop(list)      ListRemove(list);
 void ListInit(LinkedList *list);
 void listAdd(LinkedList *list,Item *item);
 void listInit1(LinkedList *list,Item *item);

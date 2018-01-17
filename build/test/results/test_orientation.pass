@@ -16,16 +16,22 @@
   :line: 52
   :message: ''
 - :test: test_Convex_Hull_Insert_To_Avl_For_Sorting
-  :line: 88
+  :line: 69
   :message: ''
-:failures:
-- :test: test_Convex_Hull_Create_Node_Insert_To_Avl_For_Sorting
-  :line: 81
-  :message: Expected 0x00000000006AF788 Was 0x00000000027A2450
+- :test: test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting
+  :line: 93
+  :message: ''
+- :test: test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_And_Remove
+  :line: 121
+  :message: ''
+- :test: test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList
+  :line: 152
+  :message: ''
+:failures: []
 :ignores: []
 :counts:
-  :total: 6
-  :passed: 5
-  :failed: 1
+  :total: 8
+  :passed: 8
+  :failed: 0
   :ignored: 0
 :stdout: []

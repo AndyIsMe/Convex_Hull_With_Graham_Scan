@@ -1,6 +1,7 @@
 #include "build/temp/_test_orientation.c"
 #include "Node.h"
 #include "Rotate.h"
+#include "Remove.h"
 #include "CExceptionConfig.h"
 #include "Exception.h"
 #include "Insert.h"
@@ -9,8 +10,6 @@
 #include "nodehelper.h"
 #include "orientation.h"
 #include "unity.h"
-
-
 
 
 
@@ -115,59 +114,11 @@ void test_Convex_Hull_Create_Node(void)
 
 
 
-  UnityAssertEqualNumber((UNITY_INT)((2)), (UNITY_INT)((p->x)), (
+  testAssertEqualPoint(2,3,"KL",p,58);
 
- ((void *)0)
+  testAssertEqualPoint(1,2,"Selangor",p1,59);
 
- ), (UNITY_UINT)(58), UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((UNITY_INT)((3)), (UNITY_INT)((p->y)), (
-
- ((void *)0)
-
- ), (UNITY_UINT)(59), UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((UNITY_INT)(("KL")), (UNITY_INT)((p->place)), (
-
- ((void *)0)
-
- ), (UNITY_UINT)(60), UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((UNITY_INT)((1)), (UNITY_INT)((p1->x)), (
-
- ((void *)0)
-
- ), (UNITY_UINT)(61), UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((UNITY_INT)((2)), (UNITY_INT)((p1->y)), (
-
- ((void *)0)
-
- ), (UNITY_UINT)(62), UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((UNITY_INT)(("Selangor")), (UNITY_INT)((p1->place)), (
-
- ((void *)0)
-
- ), (UNITY_UINT)(63), UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((p2->x)), (
-
- ((void *)0)
-
- ), (UNITY_UINT)(64), UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((p2->y)), (
-
- ((void *)0)
-
- ), (UNITY_UINT)(65), UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((UNITY_INT)(("Ipoh")), (UNITY_INT)((p2->place)), (
-
- ((void *)0)
-
- ), (UNITY_UINT)(66), UNITY_DISPLAY_STYLE_INT);
+  testAssertEqualPoint(0,0,"Ipoh",p2,60);
 
 
 
@@ -177,45 +128,11 @@ void test_Convex_Hull_Create_Node(void)
 
   free(p2);
 
+
+
 }
 
 
-
-void test_Convex_Hull_Create_Node_Insert_To_Avl_For_Sorting(void)
-
-{
-
-  Point *p = pointCreate(2,3,"KL");
-
-  Point *p1 = pointCreate(1,2,"Selangor");
-
-  Point *p2 = pointCreate(0,0,"Ipoh");
-
-
-
-  Node *root = 
-
-              ((void *)0)
-
-                  ;
-
-  TopHalf(&root,p1);
-
-  UnityAssertEqualNumber((UNITY_INT64)((&p1)), (UNITY_INT64)((root)), (
-
- ((void *)0)
-
- ), (UNITY_UINT)(81), UNITY_DISPLAY_STYLE_HEX64);
-
-
-
-  free(p);
-
-  free(p1);
-
-  free(p2);
-
-}
 
 
 
@@ -237,21 +154,21 @@ void test_Convex_Hull_Insert_To_Avl_For_Sorting(void)
 
   Node *point3 = (Node *)malloc(sizeof(Node));
 
-  createNodeForPoints(point1,&p);
+  createNodeForPoints(point1,p);
 
-  createNodeForPoints(point2,&p1);
+  createNodeForPoints(point2,p1);
 
-  createNodeForPoints(point3,&p2);
+  createNodeForPoints(point3,p2);
 
 
 
   avl_Insert(&point1,point2,(Compare)CompareX);
 
-  UnityAssertEqualNumber((UNITY_INT64)((point2)), (UNITY_INT64)((point1->left)), (
+  testAssertEqualNode(point2,
 
  ((void *)0)
 
- ), (UNITY_UINT)(102), UNITY_DISPLAY_STYLE_HEX64);
+ ,-1,point1,83);
 
 
 
@@ -260,5 +177,201 @@ void test_Convex_Hull_Insert_To_Avl_For_Sorting(void)
   free(p1);
 
   free(p2);
+
+  free(point1);
+
+  free(point2);
+
+  free(point3);
+
+}
+
+
+
+void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting(void)
+
+{
+
+  Point *p1 = pointCreate(2,3,"KL");
+
+  Point *p2 = pointCreate(1,2,"Selangor");
+
+  Point *p3 = pointCreate(0,0,"Ipoh");
+
+
+
+  Node *point1 = (Node *)malloc(sizeof(Node));
+
+  Node *point2 = (Node *)malloc(sizeof(Node));
+
+  Node *point3 = (Node *)malloc(sizeof(Node));
+
+  createNodeForPoints(point1,p1);
+
+  createNodeForPoints(point2,p2);
+
+  createNodeForPoints(point3,p3);
+
+
+
+  Node *root = point2;
+
+
+
+  avl_Insert(&root,point1,(Compare)CompareX);
+
+  avl_Insert(&root,point3,(Compare)CompareX);
+
+  testAssertEqualNode(point3,point1,0,point2,110);
+
+
+
+  free(p1);
+
+  free(p2);
+
+  free(p3);
+
+  free(point1);
+
+  free(point2);
+
+  free(point3);
+
+
+
+}
+
+
+
+void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_And_Remove(void)
+
+{
+
+  Point *p1 = pointCreate(2,3,"KL");
+
+  Point *p2 = pointCreate(1,2,"Selangor");
+
+  Point *p3 = pointCreate(0,0,"Ipoh");
+
+
+
+  Node *point1 = (Node *)malloc(sizeof(Node));
+
+  Node *point2 = (Node *)malloc(sizeof(Node));
+
+  Node *point3 = (Node *)malloc(sizeof(Node));
+
+  createNodeForPoints(point1,p1);
+
+  createNodeForPoints(point2,p2);
+
+  createNodeForPoints(point3,p3);
+
+
+
+  Node *root = point2;
+
+
+
+  avl_Insert(&root,point1,(Compare)CompareX);
+
+  avl_Insert(&root,point3,(Compare)CompareX);
+
+  testAssertEqualNode(point3,point1,0,point2,138);
+
+  *RemoveN(&root,point1->data->x,(Compare)CompareXToRemove);
+
+  testAssertEqualNode(point3,
+
+ ((void *)0)
+
+ ,-1,point2,140);
+
+  UnityAssertEqualNumber((UNITY_INT)((2)), (UNITY_INT)((point1->data->x)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(141), UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((UNITY_INT)((3)), (UNITY_INT)((point1->data->y)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(142), UNITY_DISPLAY_STYLE_INT);
+
+
+
+  free(p1);
+
+  free(p2);
+
+  free(p3);
+
+  free(point1);
+
+  free(point2);
+
+  free(point3);
+
+}
+
+
+
+void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList(void)
+
+{
+
+  Point *p1 = pointCreate(4,4,"KL");
+
+  Point *p2 = pointCreate(3,3,"Selangor");
+
+  Point *p3 = pointCreate(2,3,"Ipoh");
+
+  Point *check;
+
+
+
+  Node *point1 = (Node *)malloc(sizeof(Node));
+
+  Node *point2 = (Node *)malloc(sizeof(Node));
+
+  Node *point3 = (Node *)malloc(sizeof(Node));
+
+  createNodeForPoints(point1,p1);
+
+  createNodeForPoints(point2,p2);
+
+  createNodeForPoints(point3,p3);
+
+
+
+  Node *root = point2;
+
+
+
+  avl_Insert(&root,point1,(Compare)CompareX);
+
+  avl_Insert(&root,point3,(Compare)CompareX);
+
+  LinkedList *list = TopHalf(&root);
+
+
+
+
+
+
+
+
+
+
+
+
+
+  free(p1);
+
+  free(p2);
+
+  free(p3);
 
 }

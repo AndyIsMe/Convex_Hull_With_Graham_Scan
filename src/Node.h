@@ -4,6 +4,7 @@
 
 typedef struct Node Node;
 typedef struct PointNode PointNode;
+typedef struct Point Point;
 struct PointNode
 {
   Node *left;
@@ -13,7 +14,7 @@ struct PointNode
   int type;
 };
 
-typedef struct Point Point;
+
 struct Point
 {
   int x,y;

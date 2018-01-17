@@ -71,10 +71,10 @@
   :testfail: ".fail"
   :dependencies: ".d"
 :unity:
-  :vendor_path: C:/Students/Andy/Data_Structure_And_Algorithm/Convex_Hull_With_Graham_Scan/vendor/ceedling/vendor
+  :vendor_path: C:/Student/Andy/Algoritm&Data_Structure/Convex_Hull_With_Graham_Scan/vendor/ceedling/vendor
   :defines: []
 :cmock:
-  :vendor_path: C:/Students/Andy/Data_Structure_And_Algorithm/Convex_Hull_With_Graham_Scan/vendor/ceedling/vendor
+  :vendor_path: C:/Student/Andy/Algoritm&Data_Structure/Convex_Hull_With_Graham_Scan/vendor/ceedling/vendor
   :defines: []
   :includes: []
   :mock_prefix: mock_
@@ -94,7 +94,7 @@
   :verbosity: 3
   :unity_helper: false
 :cexception:
-  :vendor_path: C:/Students/Andy/Data_Structure_And_Algorithm/Convex_Hull_With_Graham_Scan/vendor/ceedling/vendor
+  :vendor_path: C:/Student/Andy/Algoritm&Data_Structure/Convex_Hull_With_Graham_Scan/vendor/ceedling/vendor
   :defines: []
 :test_runner:
   :includes: []

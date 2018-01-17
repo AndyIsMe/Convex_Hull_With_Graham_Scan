@@ -20,7 +20,7 @@ char *createMessage(char *message, ...){
   return buffer;
 }
 
-void testAssertEqualNode(int x , int y, char *place, Point *points,int lineNo){
+void testAssertEqualPoint(int x , int y, char *place, Point *points,int lineNo){
   char *error;
   if(x != points->x){
       error = createMessage("Expected x to be %d, but was %d",  \
@@ -37,6 +37,25 @@ void testAssertEqualNode(int x , int y, char *place, Point *points,int lineNo){
                             points->y,y);
     UNITY_TEST_FAIL(lineNo,error);
     }
+}
+
+void testAssertEqualNode(Node *left, Node *right, int bf, Node *node,int lineNo){
+  char *error;
+  if(left != node->left){
+      error = createMessage("Expected left node to be 0x%p, but was %p",  \
+                            left,node->left);
+      UNITY_TEST_FAIL(lineNo,error);
+    }
+  else if(bf != node->balanceFactor){
+    error = createMessage("Expected balance factor to be 0x%p, but was %p",  \
+                          bf,node->balanceFactor);
+    UNITY_TEST_FAIL(lineNo,error);
+  }
 
 
+  else if(right != node->right){
+      error = createMessage("Expected right node to be 0x%p, but was %p",  \
+                            right,node->right);
+    UNITY_TEST_FAIL(lineNo,error);
+    }
 }

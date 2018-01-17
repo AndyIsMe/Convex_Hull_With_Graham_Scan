@@ -90,16 +90,16 @@ int avl_Insert(Node **rootPtr, Node *nodeToAdd,Compare compareFunc){
       return heightstatus;
 }
 
-int IntCompare(int data,Node *refNode)
-{
-  if(data < refNode->data)
-  {
-  return 1;
-}
-  else if(data > refNode->data)
-  {
-  return -1;
-}
-  else
-  return 0;
-}
+// int IntCompare(int data,Node *refNode)
+// {
+//   if(data < refNode->data)
+//   {
+//   return 1;
+// }
+//   else if(data > refNode->data)
+//   {
+//   return -1;
+// }
+//   else
+//   return 0;
+// }
