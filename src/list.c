@@ -51,6 +51,21 @@ Item *removeFirst(LinkedList *list){
 	}
 }
 
+Item *removeLast(LinkedList *list){
+  if(list->head == NULL)
+  {
+    return NULL;
+  }
+  else
+  {
+    if(list->head->next != NULL)
+    {
+      list->head = list->head->next;
+    }
+    list->head->next = NULL;
+  }
+}
+
 void ListRemove(LinkedList *list){
 	Item *Initial = NULL;
 	Item *Now = list->head;
@@ -66,7 +81,7 @@ void ListRemove(LinkedList *list){
 	   if(Initial==NULL)
 	   {
 		   //the data is the head
-		   removeFirst(list);
+		   removeLast(list);
 	   }
 	   else if(Now==list->tail)
 	   {
@@ -84,33 +99,21 @@ void ListRemove(LinkedList *list){
 	   }
    }
 }
-    /*
-    if(Now==NULL){
-      list=list;
+void ListRemoveEither1stOrLast(LinkedList *list,Item *item)
+{
+	Item *TempToPoint1 = NULL ;
+	Item *TempToPoint2 = list->tail->data;
+
+	if(list->head == NULL)
+	return NULL;
+
+	else
+	{
+    if(TempToPoint2 == item->data)
+    {
+      list->tail = TempToPoint1;
+      list->len--;
     }
-		if(Now==list->tail){			//If my 'Now' is equal to my last one
-			list->tail = Initial;		//I'm able to proceed on deleting the last data
-			Initial->next = NULL;
-			list->len--;
-		}
-		else if(Now == list->head){
-      if(list->head == list->tail)	//If my "Initial' is equal to NULL from the beginning
-			ListInit(list);
-    else{
-        Now = Now->next;
-				list->head = Now;
-				list->len--;
-    }
-  }//It fulfills the criteria of the remove 1st data from the function above
-      else
-      {
-        if(Now == NULL){
-          Now = NULL;
-        }
-        else{
-  		  Initial->next = Now->next;
-  		  list->len--;
-      }
-  	   }							//Thus,I'm able to proceed on deleting the middle data
+
+	}
 }
-*/

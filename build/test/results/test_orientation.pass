@@ -24,14 +24,11 @@
 - :test: test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_And_Remove
   :line: 121
   :message: ''
-- :test: test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList
-  :line: 152
-  :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 8
-  :passed: 8
+  :total: 7
+  :passed: 7
   :failed: 0
   :ignored: 0
 :stdout: []

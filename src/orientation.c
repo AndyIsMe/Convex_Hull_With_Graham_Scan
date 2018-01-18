@@ -12,9 +12,9 @@ int distp(Point p ,Point q)
 //return 0 ---> collinear
 //return 1 ---> clockwise
 //return 2 ---> anticlockwise
-int orientation(Point p,Point q,Point r)
+int orientation(Point *p,Point *q,Point *r)
 {
-  int val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+  int val = (q->y - p->y) * (r->x - q->x) - (q->x - p->x) * (r->y - q->y);
 
   if(val > 0)
     return 1;
@@ -66,31 +66,64 @@ Point *pointCreate(int x,int y, char* place)
   return newPoint;
 }
 
-LinkedList *TopHalf(Node **root)
+LinkedList *TopHalf(Node **root,int n)
 {
   int i ;
-  Node *smallestX,*nextSmallest;
+  Node *smallestX,*nextSmallest,*furtherSmallest;
   LinkedList *list;
   //Find the starting point and place it into a linkedlist
   smallestX = SearchMinX(root);
   Point *min = (smallestX->data);
-  Item *Initial = (Item *)malloc(sizeof(Item));
-  createItem(Initial,min,NULL);
-  ListInit(&list);
-  StackPush(&list,Initial);
-  int *PointToRemove = (int*)(uintptr_t)smallestX->data->x;
+  int *PointToRemove = (int*)((uintptr_t)smallestX->data->x);
   avlremovePoint(root,PointToRemove);
+
   //Making sure 3 points are extracted
   //With point(smallest X) push to linkedlist
-  //while other 2 points are extract out to do comparison
+  //while other 2 points are extract out from AVL to do comparison
   //To make Convex Hull possible
-  for(i = 0 ; i<2 ; i++)
-  {
+
+    Item *Initial = (Item *)malloc(sizeof(Item));
+    ListInit(list);
+    createItem(Initial,min,NULL);
+    StackPush(list,Initial);
     nextSmallest = SearchMinX(root);
     Point *nextMin = nextSmallest->data;
-    //PointToRemove = ((Point*)(smallestX->data));
-    //avlremovePoint(root,PointToRemove);
-  }
+    PointToRemove = (int*)((uintptr_t)nextSmallest->data->x);
+    avlremovePoint(root,PointToRemove);
+    Item *next = (Item *)malloc(sizeof(Item));
+    createItem(next,nextMin,NULL);
+    StackPush(list,next);
+    furtherSmallest = SearchMinX(root);
+    Point *furtherMin = furtherSmallest->data;
+    PointToRemove = (int*)((uintptr_t)furtherSmallest->data->x);
+    avlremovePoint(root,PointToRemove);
+    Item *further = (Item *)malloc(sizeof(Item));
+    createItem(further,furtherMin,NULL);
+    StackPush(list,further);
+    while(*root!=NULL){
+      // for(i=2;i<n;i++)
+      // {
+         if(orientation(min,nextMin,furtherMin)!=1)
+         {
+         StackPop(list,further);
+         furtherSmallest = SearchMinX(root);
+         PointToRemove = (int*)((uintptr_t)furtherSmallest->data->x);
+         avlremovePoint(root,PointToRemove);
+         furtherMin = furtherSmallest->data;
+         StackPush(list,further);
+         }
+      //else
+      //{
+        //min = nextMin;
+        //nextMin = furtherMin;
+        //furtherSmallest = SearchMinX(root);
+        //PointToRemove = (int*)((uintptr_t)furtherSmallest->data->x);
+        //avlremovePoint(root,PointToRemove);
+        //furtherMin = furtherSmallest->data;
+      //}
+      //}
+    }
+
   return list;
 
   // while(root != NULL)

@@ -42,7 +42,7 @@ void test_orientation_expect_anticlockwise(void)
 
 
 
-    int i = orientation(pointPv12,pointPv15,pointTaruc);
+    int i = orientation(&pointPv12,&pointPv15,&pointTaruc);
 
     UnityAssertEqualNumber((UNITY_INT)((2)), (UNITY_INT)((i)), (
 
@@ -66,7 +66,7 @@ void test_orientation_expect_clockwise(void)
 
 
 
-    int i = orientation(pointPv12,pointPv15,pointTaruc);
+    int i = orientation(&pointPv12,&pointPv15,&pointTaruc);
 
     UnityAssertEqualNumber((UNITY_INT)((1)), (UNITY_INT)((i)), (
 
@@ -90,7 +90,7 @@ void test_orientation_expect_colinear(void)
 
 
 
-    int i = orientation(pointPv12,pointPv15,pointTaruc);
+    int i = orientation(&pointPv12,&pointPv15,&pointTaruc);
 
     UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((i)), (
 
@@ -318,7 +318,7 @@ void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_And_Remove(void)
 
 
 
-void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList(void)
+void xtest_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList(void)
 
 {
 
@@ -328,7 +328,7 @@ void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_Expect_Convex_Hull_
 
   Point *p3 = pointCreate(2,3,"Ipoh");
 
-  Point *check;
+  Point *head,*next,*tail;
 
 
 
@@ -354,13 +354,35 @@ void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_Expect_Convex_Hull_
 
   avl_Insert(&root,point3,(Compare)CompareX);
 
-  LinkedList *list = TopHalf(&root);
+  LinkedList *list = TopHalf(&root,3);
 
+  if (((((Point*)(list->head->data))) != 
 
+ ((void *)0)
 
+ )) {} else {UnityFail( (((" Expected Non-NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(171))));};
 
+  head = (Point*)(list->head->data);
 
+  next = (Point*)(list->head->next->data);
 
+  UnityAssertEqualNumber((UNITY_INT)((2)), (UNITY_INT)((head->x)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(174), UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((UNITY_INT)((3)), (UNITY_INT)((next->x)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(175), UNITY_DISPLAY_STYLE_INT);
+
+  if ((((list->tail)) == 
+
+ ((void *)0)
+
+ )) {} else {UnityFail( (((" Expected NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(176))));};
 
 
 

@@ -25,7 +25,7 @@ void test_orientation_expect_anticlockwise(void)
   initN(&pointPv15,4,4);
   initN(&pointTaruc,1,2);
 
-    int i = orientation(pointPv12,pointPv15,pointTaruc);
+    int i = orientation(&pointPv12,&pointPv15,&pointTaruc);
     TEST_ASSERT_EQUAL(2,i);
 }
 
@@ -35,7 +35,7 @@ void test_orientation_expect_clockwise(void)
   initN(&pointPv15,2,8);
   initN(&pointTaruc,8,2);
 
-    int i = orientation(pointPv12,pointPv15,pointTaruc);
+    int i = orientation(&pointPv12,&pointPv15,&pointTaruc);
     TEST_ASSERT_EQUAL(1,i);
 }
 
@@ -45,7 +45,7 @@ void test_orientation_expect_colinear(void)
   initN(&pointPv15,0,0);
   initN(&pointTaruc,0,0);
 
-    int i = orientation(pointPv12,pointPv15,pointTaruc);
+    int i = orientation(&pointPv12,&pointPv15,&pointTaruc);
     TEST_ASSERT_EQUAL(0,i);
 }
 
@@ -149,12 +149,12 @@ void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_And_Remove(void)
   free(point3);
 }
 
-void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList(void)
+void xtest_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList(void)
 {
   Point *p1 = pointCreate(4,4,"KL");
   Point *p2 = pointCreate(3,3,"Selangor");
   Point *p3 = pointCreate(2,3,"Ipoh");
-  Point *check;
+  Point *head,*next,*tail;
 
   Node *point1 = (Node *)malloc(sizeof(Node));
   Node *point2 = (Node *)malloc(sizeof(Node));
@@ -167,12 +167,14 @@ void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_Expect_Convex_Hull_
 
   avladdPoint(&root,point1);
   avladdPoint(&root,point3);
-  LinkedList *list = TopHalf(&root);
-  //TEST_ASSERT_EQUAL_NODE(point3,point1,0,point2);
-  // TEST_ASSERT_NOT_NULL((Point*)(list->head->));
-  //check = (Point*)(list->head->data);
-  //TEST_ASSERT_EQUAL(1,check->x);
-  //TEST_ASSERT_EQUAL_NODE(point3,point1,0,point2);
+  LinkedList *list = TopHalf(&root,3);
+  TEST_ASSERT_NOT_NULL((Point*)(list->head->data));
+  head = (Point*)(list->head->data);
+  next = (Point*)(list->head->next->data);
+  TEST_ASSERT_EQUAL(2,head->x);
+  TEST_ASSERT_EQUAL(3,next->x);
+  TEST_ASSERT_NULL(list->tail);
+
 
   free(p1);
   free(p2);
