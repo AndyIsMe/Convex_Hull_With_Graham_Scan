@@ -16,16 +16,13 @@
 
 int distp(Point p ,Point q);
 int orientation(Point *p,Point *q,Point *r);
- int PolarAngle(Point p , Point p0);
- //int compare(const void *vp1,const void *vp2);
- int swap(Point p , Point p2);
- Point *convexHull(Point points[] , int n , int choice);
-
 
 Point *pointCreate(int x,int y, char* place);
 Node *SearchMinX(Node **rootPtr);
+Node *SearchMaxX(Node **rootPtr);
 int CompareX(Point *p, Node *refNode);
 LinkedList *TopHalf(Node **root,int n);
+LinkedList *BottomHalf(Node **root,int n);
 void createNodeForPoints(Node *node,Point *data);
 int CompareXToRemove(int x, Node *refNode);
 

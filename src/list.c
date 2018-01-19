@@ -102,18 +102,21 @@ void ListRemove(LinkedList *list){
 void ListRemoveEither1stOrLast(LinkedList *list,Item *item)
 {
 	Item *TempToPoint1 = NULL ;
-	Item *TempToPoint2 = list->tail->data;
+	Item *TempToPoint2 = list->head;
 
 	if(list->head == NULL)
 	return NULL;
 
-	else
-	{
-    if(TempToPoint2 == item->data)
+  while(TempToPoint2 != NULL)
+  {
+    if(TempToPoint2->data == item->data)
     {
       list->tail = TempToPoint1;
+      TempToPoint1->next = NULL;
       list->len--;
     }
+    TempToPoint1 = TempToPoint2;
+    TempToPoint2 = TempToPoint2->next;
+  }
 
-	}
 }
