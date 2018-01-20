@@ -51,54 +51,7 @@ Item *removeFirst(LinkedList *list){
 	}
 }
 
-Item *removeLast(LinkedList *list){
-  if(list->head == NULL)
-  {
-    return NULL;
-  }
-  else
-  {
-    if(list->head->next != NULL)
-    {
-      list->head = list->head->next;
-    }
-    list->head->next = NULL;
-  }
-}
 
-void ListRemove(LinkedList *list){
-	Item *Initial = NULL;
-	Item *Now = list->head;
-
-
-   if(Now==NULL)
-   {
-	   //no data matched until last node
-	   Now=NULL;
-   }
-   else
-   {
-	   if(Initial==NULL)
-	   {
-		   //the data is the head
-		   removeLast(list);
-	   }
-	   else if(Now==list->tail)
-	   {
-		   //the item is tail
-		   list->tail=Initial;
-		   list->tail->next=NULL;
-		   list->len--;
-	   }
-
-	   else
-	   {
-		   //the item is in between 2 node
-		   Initial->next=Now->next;
-		   list->len--;
-	   }
-   }
-}
 void ListRemoveEither1stOrLast(LinkedList *list,Item *item)
 {
 	Item *TempToPoint1 = NULL ;

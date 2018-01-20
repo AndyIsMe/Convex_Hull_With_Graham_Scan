@@ -2,7 +2,10 @@
 #define _INSERT_H
 #include "Node.h"
 #include "Rotate.h"
+#include "Exception.h"
+#include "CException.h"
 
+#define NODE_DUPLICATE_EXIST  100
 //Node createNode(int node);
 typedef int(*Compare)(void *data,Node *refdata);
 

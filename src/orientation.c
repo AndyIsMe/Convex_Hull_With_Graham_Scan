@@ -33,15 +33,23 @@ Point *pointCreate(int x,int y, char* place)
   return newPoint;
 }
 
-LinkedList *TopHalf(Node **root,int n)
+Point *TopHalf(Node **root,int n,int m)
 {
   Node *smallestX,*nextSmallest,*furtherSmallest;
   LinkedList *list = (LinkedList*)malloc(sizeof(LinkedList));
+  Point reverse[m];
   //Find the starting point and place it into a linkedlist
   //Also Remove the smallest node in the AVL tree
   //So that the next smallest node will not clash
+  if(((*root)->left == NULL)||(*root)->right == NULL)
+  {
+    printf("Convex Hull not possible \n");
+  }
   smallestX = SearchMinX(root);
   Point *min = (smallestX->data);
+  reverse[0].x = min->x;
+  reverse[0].y = min->y;
+  reverse[0].place = min->place;
   int *PointToRemove = (int*)((uintptr_t)smallestX->data->x);
   avlremovePoint(root,PointToRemove);
 
@@ -51,10 +59,16 @@ LinkedList *TopHalf(Node **root,int n)
   //To make Convex Hull possible
   nextSmallest = SearchMinX(root);
   Point *nextMin = nextSmallest->data;
+  reverse[1].x = nextMin->x;
+  reverse[1].y = nextMin->y;
+  reverse[1].place = nextMin->place;
   PointToRemove = (int*)((uintptr_t)nextSmallest->data->x);
   avlremovePoint(root,PointToRemove);
   furtherSmallest = SearchMinX(root);
   Point *furtherMin = furtherSmallest->data;
+  reverse[2].x = furtherMin->x;
+  reverse[2].y = furtherMin->y;
+  reverse[2].place = furtherMin->place;
   PointToRemove = (int*)((uintptr_t)furtherSmallest->data->x);
   avlremovePoint(root,PointToRemove);
 
@@ -65,7 +79,7 @@ LinkedList *TopHalf(Node **root,int n)
 
   Item *next = (Item *)malloc(sizeof(Item));
   Item *further = (Item *)malloc(sizeof(Item));
-
+  m = 1;
       for(int i=1 ; i<n ; i++)
       {
          if(orientation(list->tail->data,nextMin,furtherMin)==2)
@@ -76,6 +90,10 @@ LinkedList *TopHalf(Node **root,int n)
              PointToRemove = (int*)((uintptr_t)furtherSmallest->data->x);
              avlremovePoint(root,PointToRemove);
              furtherMin = furtherSmallest->data;
+             reverse[2+m].x = furtherMin->x;
+             reverse[2+m].y = furtherMin->y;
+             reverse[2+m].place = furtherMin->place;
+             m++;
            }
            else
            {
@@ -98,6 +116,10 @@ LinkedList *TopHalf(Node **root,int n)
               PointToRemove = (int*)((uintptr_t)furtherSmallest->data->x);
               avlremovePoint(root,PointToRemove);
               furtherMin = furtherSmallest->data;
+              reverse[2+m].x = furtherMin->x;
+              reverse[2+m].y = furtherMin->y;
+              reverse[2+m].place = furtherMin->place;
+              m++;
             }
             else
             {
@@ -113,35 +135,51 @@ LinkedList *TopHalf(Node **root,int n)
             PointToRemove = (int*)((uintptr_t)furtherSmallest->data->x);
             avlremovePoint(root,PointToRemove);
             furtherMin = furtherSmallest->data;
+            reverse[2+m].x = furtherMin->x;
+            reverse[2+m].y = furtherMin->y;
+            reverse[2+m].place = furtherMin->place;
+            m++;
           }
       }
-  return list;
+      Item *TempPoint = NULL;
+      Item *TempPoint1 = list->head;
+      printf("Convex Hull coordinates :(%d,%d)[%s]\n",list->head->data->x,list->head->data->y,list->head->data->place);
+      while(list->head->data != list->tail->data)
+      {
+        TempPoint1 = TempPoint1->next;
+        list->head = TempPoint1;
+        printf("Convex Hull coordinates :(%d,%d)[%s]\n",list->head->data->x,list->head->data->y,list->head->data->place);
+
+      }
+
+      int z = &(reverse[0]);
+      return z;
 }
 
-LinkedList *BottomHalf(Node **root,int n)
+LinkedList *BottomHalf(Point root[],int n)
 {
-  Node *LargestX,*nextLargest,*furtherLargest;
   LinkedList *list = (LinkedList*)malloc(sizeof(LinkedList));
-  //Find the starting point and place it into a linkedlist
-  //Also Remove the Largest node in the AVL tree
-  //So that the next Largest node will not clash
-  LargestX = SearchMaxX(root);
-  Point *max = (LargestX->data);
-  int *PointToRemove = (int*)((uintptr_t)LargestX->data->x);
-  avlremovePoint(root,PointToRemove);
+  //Store largest x Point into a pointer structure
+  //And Store it into a linked list to indicate the starting point
+  //Is from the back
+  Point *max = (Point*)malloc(sizeof(Point));
+  max->x = root[0].x;
+  max->y = root[0].y;
+  max->place = root[0].place;
 
-  //Making sure 3 points are extracted
-  //With point(Largest X) push to linkedlist
-  //while other 2 points are extract out from AVL to do comparison
-  //To make Convex Hull possible
-  nextLargest = SearchMaxX(root);
-  Point *nextMax = nextLargest->data;
-  PointToRemove = (int*)((uintptr_t)nextLargest->data->x);
-  avlremovePoint(root,PointToRemove);
-  furtherLargest = SearchMaxX(root);
-  Point *furtherMax = furtherLargest->data;
-  PointToRemove = (int*)((uintptr_t)furtherLargest->data->x);
-  avlremovePoint(root,PointToRemove);
+  //2 more points with the following largest x Point are
+  //put into a pointer structure
+  //for further comparison between three points
+  //to make Convex Hull possible
+  Point *nextMax = (Point*)malloc(sizeof(Point));
+  nextMax->x = root[1].x;
+  nextMax->y = root[1].y;
+  nextMax->place = root[1].place;
+
+  Point *furtherMax = (Point*)malloc(sizeof(Point));
+  furtherMax->x = root[2].x;
+  furtherMax->y = root[2].y;
+  furtherMax->place = root[2].place;
 
   Item *Initial = (Item *)malloc(sizeof(Item));
   ListInit(list);
@@ -150,18 +188,25 @@ LinkedList *BottomHalf(Node **root,int n)
 
   Item *next = (Item *)malloc(sizeof(Item));
   Item *further = (Item *)malloc(sizeof(Item));
-
-      for(int i=1 ; i<n ; i++)
+  int x;
+  int y;
+  char *place;
+      for(int i=3 ; i<8 ; i++)
       {
          if(orientation(list->tail->data,nextMax,furtherMax)==2)
          {
            if(list->head->data==list->tail->data)
            {
-             nextMax = furtherMax;
-             furtherLargest = SearchMaxX(root);
-             PointToRemove = (int*)((uintptr_t)furtherLargest->data->x);
-             avlremovePoint(root,PointToRemove);
-             furtherMax = furtherLargest->data;
+             x = furtherMax->x;
+             y = furtherMax->y;
+             place = furtherMax->place;
+             nextMax = (Point*)malloc(sizeof(Point));
+             nextMax->x = x;
+             nextMax->y = y;
+             nextMax->place = place;
+             furtherMax->x = root[i].x;
+             furtherMax->y = root[i].y;
+             furtherMax->place = root[i].place;
            }
            else
            {
@@ -176,14 +221,25 @@ LinkedList *BottomHalf(Node **root,int n)
           next = (Item *)malloc(sizeof(Item));
           createItem(next,nextMax,NULL);
           StackPush(list,next);
-            if(*root!=NULL)
+            if(furtherMax->x != root[n-1].x && furtherMax->y != root[n-1].y)
             {
-              max = nextMax;
-              nextMax = furtherMax;
-              furtherLargest = SearchMaxX(root);
-              PointToRemove = (int*)((uintptr_t)furtherLargest->data->x);
-              avlremovePoint(root,PointToRemove);
-              furtherMax = furtherLargest->data;
+              x = nextMax->x;
+              y = nextMax->y;
+              place = nextMax->place;
+              max = (Point*)malloc(sizeof(Point));
+              max->x = x;
+              max->y = y;
+              max->place = place;
+              x = furtherMax->x;
+              y = furtherMax->y;
+              place = furtherMax->place;
+              nextMax = (Point*)malloc(sizeof(Point));
+              nextMax->x = x;
+              nextMax->y = y;
+              nextMax->place = place;
+              furtherMax->x = root[i].x;
+              furtherMax->y = root[i].y;
+              furtherMax->place = root[i].place;
             }
             else
             {
@@ -194,16 +250,198 @@ LinkedList *BottomHalf(Node **root,int n)
           }
           else
           {
-            nextMax = furtherMax;
-            furtherLargest = SearchMaxX(root);
-            PointToRemove = (int*)((uintptr_t)furtherLargest->data->x);
-            avlremovePoint(root,PointToRemove);
-            furtherMax = furtherLargest->data;
+            x = furtherMax->x;
+            y = furtherMax->y;
+            place = furtherMax->place;
+            nextMax = (Point*)malloc(sizeof(Point));
+            nextMax->x = x;
+            nextMax->y = y;
+            nextMax->place = place;
+            furtherMax->x = root[i].x;
+            furtherMax->y = root[i].y;
+            furtherMax->place = root[i].place;
 
           }
       }
   return list;
 }
+
+// LinkedList *TopHalf(Node **root,int n)
+// {
+//   Node *smallestX,*nextSmallest,*furtherSmallest;
+//   LinkedList *list = (LinkedList*)malloc(sizeof(LinkedList));
+//   //Find the starting point and place it into a linkedlist
+//   //Also Remove the smallest node in the AVL tree
+//   //So that the next smallest node will not clash
+//   if(((*root)->left == NULL)||(*root)->right == NULL)
+//   {
+//     ListInit(list);
+//     return list;
+//   }
+//   smallestX = SearchMinX(root);
+//   Point *min = (smallestX->data);
+//   int *PointToRemove = (int*)((uintptr_t)smallestX->data->x);
+//   avlremovePoint(root,PointToRemove);
+//
+//   //Making sure 3 points are extracted
+//   //With point(smallest X) push to linkedlist
+//   //while other 2 points are extract out from AVL to do comparison
+//   //To make Convex Hull possible
+//   nextSmallest = SearchMinX(root);
+//   Point *nextMin = nextSmallest->data;
+//   PointToRemove = (int*)((uintptr_t)nextSmallest->data->x);
+//   avlremovePoint(root,PointToRemove);
+//   furtherSmallest = SearchMinX(root);
+//   Point *furtherMin = furtherSmallest->data;
+//   PointToRemove = (int*)((uintptr_t)furtherSmallest->data->x);
+//   avlremovePoint(root,PointToRemove);
+//
+//   Item *Initial = (Item *)malloc(sizeof(Item));
+//   ListInit(list);
+//   createItem(Initial,min,NULL);
+//   StackPush(list,Initial);
+//
+//   Item *next = (Item *)malloc(sizeof(Item));
+//   Item *further = (Item *)malloc(sizeof(Item));
+//
+//       for(int i=1 ; i<n ; i++)
+//       {
+//          if(orientation(list->tail->data,nextMin,furtherMin)==2)
+//          {
+//            if(list->head->data==list->tail->data)
+//            {
+//              furtherSmallest = SearchMinX(root);
+//              PointToRemove = (int*)((uintptr_t)furtherSmallest->data->x);
+//              avlremovePoint(root,PointToRemove);
+//              furtherMin = furtherSmallest->data;
+//            }
+//            else
+//            {
+//              nextMin = list->tail->data;
+//              next = (Item *)malloc(sizeof(Item));
+//              createItem(next,nextMin,NULL);
+//              StackPop(list,next);
+//            }
+//          }
+//          else if(orientation(list->tail->data,nextMin,furtherMin)==1)
+//          {
+//           next = (Item *)malloc(sizeof(Item));
+//           createItem(next,nextMin,NULL);
+//           StackPush(list,next);
+//             if(*root!=NULL)
+//             {
+//               min = nextMin;
+//               nextMin = furtherMin;
+//               furtherSmallest = SearchMinX(root);
+//               PointToRemove = (int*)((uintptr_t)furtherSmallest->data->x);
+//               avlremovePoint(root,PointToRemove);
+//               furtherMin = furtherSmallest->data;
+//             }
+//             else
+//             {
+//               further = (Item*)malloc(sizeof(Item));
+//               createItem(further,furtherMin,NULL);
+//               StackPush(list,further);
+//             }
+//           }
+//           else
+//           {
+//             nextMin = furtherMin;
+//             furtherSmallest = SearchMinX(root);
+//             PointToRemove = (int*)((uintptr_t)furtherSmallest->data->x);
+//             avlremovePoint(root,PointToRemove);
+//             furtherMin = furtherSmallest->data;
+//           }
+//       }
+//   return list;
+// }
+
+// LinkedList *BottomHalf(Node **root,int n)
+// {
+//   Node *LargestX,*nextLargest,*furtherLargest;
+//   LinkedList *list = (LinkedList*)malloc(sizeof(LinkedList));
+//   //Find the starting point and place it into a linkedlist
+//   //Also Remove the Largest node in the AVL tree
+//   //So that the next Largest node will not clash
+//   LargestX = SearchMaxX(root);
+//   Point *max = (LargestX->data);
+//   int *PointToRemove = (int*)((uintptr_t)LargestX->data->x);
+//   avlremovePoint(root,PointToRemove);
+//
+//   //Making sure 3 points are extracted
+//   //With point(Largest X) push to linkedlist
+//   //while other 2 points are extract out from AVL to do comparison
+//   //To make Convex Hull possible
+//   nextLargest = SearchMaxX(root);
+//   Point *nextMax = nextLargest->data;
+//   PointToRemove = (int*)((uintptr_t)nextLargest->data->x);
+//   avlremovePoint(root,PointToRemove);
+//   furtherLargest = SearchMaxX(root);
+//   Point *furtherMax = furtherLargest->data;
+//   PointToRemove = (int*)((uintptr_t)furtherLargest->data->x);
+//   avlremovePoint(root,PointToRemove);
+//
+//   Item *Initial = (Item *)malloc(sizeof(Item));
+//   ListInit(list);
+//   createItem(Initial,max,NULL);
+//   StackPush(list,Initial);
+//
+//   Item *next = (Item *)malloc(sizeof(Item));
+//   Item *further = (Item *)malloc(sizeof(Item));
+//
+//       for(int i=1 ; i<n ; i++)
+//       {
+//          if(orientation(list->tail->data,nextMax,furtherMax)==2)
+//          {
+//            if(list->head->data==list->tail->data)
+//            {
+//              nextMax = furtherMax;
+//              furtherLargest = SearchMaxX(root);
+//              PointToRemove = (int*)((uintptr_t)furtherLargest->data->x);
+//              avlremovePoint(root,PointToRemove);
+//              furtherMax = furtherLargest->data;
+//            }
+//            else
+//            {
+//              nextMax = list->tail->data;
+//              next = (Item *)malloc(sizeof(Item));
+//              createItem(next,nextMax,NULL);
+//              StackPop(list,next);
+//            }
+//          }
+//          else if(orientation(list->tail->data,nextMax,furtherMax)==1)
+//          {
+//           next = (Item *)malloc(sizeof(Item));
+//           createItem(next,nextMax,NULL);
+//           StackPush(list,next);
+//             if(*root!=NULL)
+//             {
+//               max = nextMax;
+//               nextMax = furtherMax;
+//               furtherLargest = SearchMaxX(root);
+//               PointToRemove = (int*)((uintptr_t)furtherLargest->data->x);
+//               avlremovePoint(root,PointToRemove);
+//               furtherMax = furtherLargest->data;
+//             }
+//             else
+//             {
+//               further = (Item*)malloc(sizeof(Item));
+//               createItem(further,furtherMax,NULL);
+//               StackPush(list,further);
+//             }
+//           }
+//           else
+//           {
+//             nextMax = furtherMax;
+//             furtherLargest = SearchMaxX(root);
+//             PointToRemove = (int*)((uintptr_t)furtherLargest->data->x);
+//             avlremovePoint(root,PointToRemove);
+//             furtherMax = furtherLargest->data;
+//
+//           }
+//       }
+//   return list;
+// }
 
 
 Node *SearchMinX(Node **rootPtr)

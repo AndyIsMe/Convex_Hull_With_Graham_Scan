@@ -40,8 +40,11 @@ extern void test_orientation_expect_colinear(void);
 extern void test_Convex_Hull_Create_Node(void);
 extern void test_Convex_Hull_Insert_To_Avl_For_Sorting(void);
 extern void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting(void);
+extern void test_Convex_Hull_Insert_A_Few_Points_To_Avl_With_Same_X_Coordinate(void);
 extern void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_And_Remove(void);
+extern void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Same_X_Expect_Convex_Hull_In_LinkedList_For_TopHalf(void);
 extern void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList_For_TopHalf(void);
+extern void test_Convex_Hull_Inser_10_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_Worst_Case_In_LinkedList_For_TopHalf(void);
 
 
 /*=======Test Reset Option=====*/
@@ -63,8 +66,11 @@ int main(void)
   RUN_TEST(test_Convex_Hull_Create_Node, 52);
   RUN_TEST(test_Convex_Hull_Insert_To_Avl_For_Sorting, 65);
   RUN_TEST(test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting, 86);
-  RUN_TEST(test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_And_Remove, 111);
-  RUN_TEST(test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList_For_TopHalf, 139);
+  RUN_TEST(test_Convex_Hull_Insert_A_Few_Points_To_Avl_With_Same_X_Coordinate, 112);
+  RUN_TEST(test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_And_Remove, 150);
+  RUN_TEST(test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Same_X_Expect_Convex_Hull_In_LinkedList_For_TopHalf, 199);
+  RUN_TEST(test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList_For_TopHalf, 273);
+  RUN_TEST(test_Convex_Hull_Inser_10_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_Worst_Case_In_LinkedList_For_TopHalf, 337);
 
   return (UnityEnd());
 }

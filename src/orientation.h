@@ -5,6 +5,8 @@
 #include "Node.h"
 #include "Insert.h"
 #include "Remove.h"
+#include "Exception.h"
+#include "CExceptionConfig.h"
 
 #define clockwise 1
 #define anticlockwise 0
@@ -21,8 +23,10 @@ Point *pointCreate(int x,int y, char* place);
 Node *SearchMinX(Node **rootPtr);
 Node *SearchMaxX(Node **rootPtr);
 int CompareX(Point *p, Node *refNode);
-LinkedList *TopHalf(Node **root,int n);
-LinkedList *BottomHalf(Node **root,int n);
+Point *TopHalf(Node **root,int n,int m);
+LinkedList *BottomHalf(Point *root,int n);
+// LinkedList *TopHalf(Node **root,int n);
+// LinkedList *BottomHalf(Node **root,int n);
 void createNodeForPoints(Node *node,Point *data);
 int CompareXToRemove(int x, Node *refNode);
 

@@ -64,7 +64,8 @@ int avl_Insert(Node **rootPtr, Node *nodeToAdd,Compare compareFunc){
           if((*rootPtr)->balanceFactor == 0)
             heightstatus = 0;
         }
-        else{
+        else
+        {
           (*rootPtr)->balanceFactor = (*rootPtr)->balanceFactor;
         }
                                             }
@@ -79,6 +80,10 @@ int avl_Insert(Node **rootPtr, Node *nodeToAdd,Compare compareFunc){
         else
           (*rootPtr)->balanceFactor = (*rootPtr)->balanceFactor;
                                                   }
+      else
+      {
+        Throw(createException("Found nodes with the same x coordinates",NODE_DUPLICATE_EXIST));
+      }
         }
       if((*rootPtr)->balanceFactor >= 2)
         avlBalanceRightTreeV1(&(*rootPtr));

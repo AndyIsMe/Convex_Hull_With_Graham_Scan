@@ -1,6 +1,8 @@
 
 #ifndef Exception_H
 #define Exception_H
+#include "CExceptionConfig.h"
+#include "error.h"
 
 
 typedef struct Exception Exception;
