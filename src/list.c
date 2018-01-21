@@ -58,7 +58,7 @@ void ListRemoveEither1stOrLast(LinkedList *list,Item *item)
 	Item *TempToPoint2 = list->head;
 
 	if(list->head == NULL)
-	return NULL;
+	return ;
 
   while(TempToPoint2 != NULL)
   {

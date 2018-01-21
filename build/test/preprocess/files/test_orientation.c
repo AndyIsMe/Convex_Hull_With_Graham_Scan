@@ -392,7 +392,71 @@ void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_And_Remove(void)
 
 }
 
-void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Same_X_Expect_Convex_Hull_In_LinkedList_For_TopHalf(void)
+
+
+void test_Convex_Hull_Insert_2_Points_To_Avl_For_Sorting_Expect_1_Point_in_LinkedList_since_Convex_Hull_Is_Not_Possible(void)
+
+{
+
+  Point *p1 = pointCreate(2,0,"KL");
+
+  Point *p2 = pointCreate(1,1,"Selangor");
+
+
+
+  Node *point1 = (Node *)malloc(sizeof(Node));
+
+  Node *point2 = (Node *)malloc(sizeof(Node));
+
+  createNodeForPoints(point1,p1);
+
+  createNodeForPoints(point2,p2);
+
+
+
+  Node *root = point2;
+
+  avl_Insert(&root,point1,(Compare)CompareX);
+
+
+
+  { jmp_buf *PrevFrame, NewFrame; unsigned int MY_ID = (0); PrevFrame = CExceptionFrames[MY_ID].pFrame; CExceptionFrames[MY_ID].pFrame = (jmp_buf*)(&NewFrame); CExceptionFrames[MY_ID].Exception = ((ExceptionPtr)0x5A5A5A5A); ; if (
+
+ _setjmp((
+
+ NewFrame
+
+ ), __builtin_frame_address (0)) 
+
+ == 0) { if (1)
+
+  {
+
+    TopHalf(&root,2,2);
+
+  }
+
+  else { } CExceptionFrames[MY_ID].Exception = ((ExceptionPtr)0x5A5A5A5A); ; } else { ex = CExceptionFrames[MY_ID].Exception; (void)ex; ; } CExceptionFrames[MY_ID].pFrame = PrevFrame; ; } if (CExceptionFrames[(0)].Exception != ((ExceptionPtr)0x5A5A5A5A))
+
+  {
+
+    dumpException(ex);
+
+  }
+
+
+
+  free(point1);
+
+  free(point2);
+
+}
+
+
+
+
+
+void test_Convex_Hull_In_Graham_Scan_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Same_X_Expect_Convex_Hull(void)
 
 {
 
@@ -468,6 +532,8 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Sam
 
   {
 
+    dumpException(ex);
+
     Item *item = (Item*)malloc(sizeof(Item));
 
     createItem(item,point5->data,
@@ -486,13 +552,13 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Sam
 
    ((void *)0)
 
-   ), (UNITY_UINT)(238), UNITY_DISPLAY_STYLE_INT);
+   ), (UNITY_UINT)(245), UNITY_DISPLAY_STYLE_INT);
 
     UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((check->head->data->y)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(239), UNITY_DISPLAY_STYLE_INT);
+   ), (UNITY_UINT)(246), UNITY_DISPLAY_STYLE_INT);
 
   }
 
@@ -500,19 +566,21 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Sam
 
   Point *reverse = TopHalf(&root,5,5);
 
-  testAssertEqualPoint(0,1,"Ipoh",reverse,243);
+  testAssertEqualPoint(0,1,"Ipoh",reverse,250);
 
-  testAssertEqualPoint(1,1,"Selangor",reverse+1,244);
+  testAssertEqualPoint(1,1,"Selangor",reverse+1,251);
 
-  testAssertEqualPoint(2,0,"KL",reverse+2,245);
+  testAssertEqualPoint(2,0,"KL",reverse+2,252);
 
-  testAssertEqualPoint(3,-1,"Kelantan",reverse+3,246);
+  testAssertEqualPoint(3,-1,"Kelantan",reverse+3,253);
 
-  testAssertEqualPoint(5,-2,"Johor",reverse+4,247);
+  testAssertEqualPoint(5,-2,"Johor",reverse+4,254);
 
-  int n = 4;
+  int n = 5;
 
   Point BackwardOrder[n];
+
+  n--;
 
   BackwardOrder[0].x = (reverse+n)->x;
 
@@ -520,7 +588,7 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Sam
 
   BackwardOrder[0].place = (reverse+n)->place;
 
-  for(i=1 ; i<5 ; i++)
+  for(i=1 ; i<6 ; i++)
 
   {
 
@@ -534,25 +602,27 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Sam
 
   }
 
-  LinkedList *list = BottomHalf(BackwardOrder,2);
+  n = 5;
+
+  LinkedList *list = BottomHalf(BackwardOrder,n);
 
   UnityAssertEqualNumber((UNITY_INT)((5)), (UNITY_INT)((list->head->data->x)), (
 
  ((void *)0)
 
- ), (UNITY_UINT)(261), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(270), UNITY_DISPLAY_STYLE_INT);
 
   UnityAssertEqualNumber((UNITY_INT)((3)), (UNITY_INT)((list->head->next->data->x)), (
 
  ((void *)0)
 
- ), (UNITY_UINT)(262), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(271), UNITY_DISPLAY_STYLE_INT);
 
   UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((list->tail->data->x)), (
 
  ((void *)0)
 
- ), (UNITY_UINT)(263), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(272), UNITY_DISPLAY_STYLE_INT);
 
 
 
@@ -572,7 +642,7 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Sam
 
 
 
-void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList_For_TopHalf(void)
+void test_Convex_Hull_In_Graham_Scan_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_(void)
 
 {
 
@@ -634,23 +704,25 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_L
 
   Point *reverse = TopHalf(&root,6,6);
 
-  testAssertEqualPoint(0,1,"Ipoh",reverse,304);
+  testAssertEqualPoint(0,1,"Ipoh",reverse,313);
 
-  testAssertEqualPoint(1,1,"Selangor",reverse+1,305);
+  testAssertEqualPoint(1,1,"Selangor",reverse+1,314);
 
-  testAssertEqualPoint(2,0,"KL",reverse+2,306);
+  testAssertEqualPoint(2,0,"KL",reverse+2,315);
 
-  testAssertEqualPoint(3,-1,"Kelantan",reverse+3,307);
+  testAssertEqualPoint(3,-1,"Kelantan",reverse+3,316);
 
-  testAssertEqualPoint(4,0,"Pahang",reverse+4,308);
+  testAssertEqualPoint(4,0,"Pahang",reverse+4,317);
 
-  testAssertEqualPoint(5,-2,"Johor",reverse+5,309);
+  testAssertEqualPoint(5,-2,"Johor",reverse+5,318);
 
 
 
-  int n = 5;
+  int n = 6;
 
   Point BackwardOrder[n];
+
+  n--;
 
   BackwardOrder[0].x = (reverse+n)->x;
 
@@ -658,7 +730,7 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_L
 
   BackwardOrder[0].place = (reverse+n)->place;
 
-  for(i=1 ; i<6 ; i++)
+  for(i=1 ; i<7 ; i++)
 
   {
 
@@ -672,27 +744,27 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_L
 
   }
 
+  n = 6;
 
+  LinkedList *list = BottomHalf(BackwardOrder,n);
 
-  LinkedList *list = BottomHalf(BackwardOrder,6);
+  UnityAssertEqualNumber((UNITY_INT)((5)), (UNITY_INT)((list->head->data->x)), (
 
-    UnityAssertEqualNumber((UNITY_INT)((5)), (UNITY_INT)((list->head->data->x)), (
+ ((void *)0)
 
-   ((void *)0)
+ ), (UNITY_UINT)(335), UNITY_DISPLAY_STYLE_INT);
 
-   ), (UNITY_UINT)(325), UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((UNITY_INT)((3)), (UNITY_INT)((list->head->next->data->x)), (
 
-    UnityAssertEqualNumber((UNITY_INT)((3)), (UNITY_INT)((list->head->next->data->x)), (
+ ((void *)0)
 
-   ((void *)0)
+ ), (UNITY_UINT)(336), UNITY_DISPLAY_STYLE_INT);
 
-   ), (UNITY_UINT)(326), UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((list->tail->data->x)), (
 
-    UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((list->tail->data->x)), (
+ ((void *)0)
 
-   ((void *)0)
-
-   ), (UNITY_UINT)(327), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(337), UNITY_DISPLAY_STYLE_INT);
 
 
 
@@ -710,9 +782,213 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_L
 
 }
 
+void test_Convex_Hull_In_Graham_Scan_Insert_8_Points_To_Avl_For_Sorting_Expect_Convex_Hull_(void)
+
+{
+
+  int i;
+
+  Point *p1 = pointCreate(58,170,"Japan");
+
+  Point *p2 = pointCreate(130,170,"Malaysia");
+
+  Point *p3 = pointCreate(141,156,"Philippines");
+
+  Point *p4 = pointCreate(135,109,"USA");
+
+  Point *p5 = pointCreate(42,109,"Korea");
+
+  Point *p6 = pointCreate(67,148,"Brunei");
+
+  Point *p7 = pointCreate(99,160,"Saudi Arabia");
+
+  Point *p8 = pointCreate(120,120,"Thailand");
 
 
-void test_Convex_Hull_Inser_10_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_Worst_Case_In_LinkedList_For_TopHalf(void)
+
+  Node *A = (Node *)malloc(sizeof(Node));
+
+  Node *B = (Node *)malloc(sizeof(Node));
+
+  Node *C = (Node *)malloc(sizeof(Node));
+
+  Node *D = (Node *)malloc(sizeof(Node));
+
+  Node *E = (Node *)malloc(sizeof(Node));
+
+  Node *F = (Node *)malloc(sizeof(Node));
+
+  Node *G = (Node *)malloc(sizeof(Node));
+
+  Node *H = (Node *)malloc(sizeof(Node));
+
+  createNodeForPoints(A,p1);
+
+  createNodeForPoints(B,p2);
+
+  createNodeForPoints(C,p3);
+
+  createNodeForPoints(D,p4);
+
+  createNodeForPoints(E,p5);
+
+  createNodeForPoints(F,p6);
+
+  createNodeForPoints(G,p7);
+
+  createNodeForPoints(H,p8);
+
+
+
+  Node *root = F;
+
+
+
+  avl_Insert(&root,A,(Compare)CompareX);
+
+  avl_Insert(&root,B,(Compare)CompareX);
+
+  avl_Insert(&root,C,(Compare)CompareX);
+
+  avl_Insert(&root,D,(Compare)CompareX);
+
+  avl_Insert(&root,E,(Compare)CompareX);
+
+  avl_Insert(&root,G,(Compare)CompareX);
+
+  avl_Insert(&root,H,(Compare)CompareX);
+
+  Point *reverse = TopHalf(&root,11,8);
+
+  testAssertEqualPoint(42,109,"Korea",reverse,409);
+
+  testAssertEqualPoint(58,170,"Japan",reverse+1,410);
+
+  testAssertEqualPoint(67,148,"Brunei",reverse+2,411);
+
+  testAssertEqualPoint(99,160,"Saudi Arabia",reverse+3,412);
+
+  testAssertEqualPoint(120,120,"Thailand",reverse+4,413);
+
+  testAssertEqualPoint(130,170,"Malaysia",reverse+5,414);
+
+  testAssertEqualPoint(135,109,"USA",reverse+6,415);
+
+  testAssertEqualPoint(141,156,"Philippines",reverse+7,416);
+
+
+
+  int n = 8;
+
+  Point BackwardOrder[n];
+
+  n--;
+
+  BackwardOrder[0].x = (reverse+n)->x;
+
+  BackwardOrder[0].y = (reverse+n)->y;
+
+  BackwardOrder[0].place = (reverse+n)->place;
+
+  for(i=1 ; i<9 ; i++)
+
+  {
+
+    n--;
+
+    BackwardOrder[i].x = (reverse+n)->x;
+
+    BackwardOrder[i].y = (reverse +n)->y;
+
+    BackwardOrder[i].place = (reverse+n)->place;
+
+  }
+
+  n = 8;
+
+  LinkedList *list = BottomHalf(BackwardOrder,n);
+
+  if (((((Point*)(list->head->data))) != 
+
+ ((void *)0)
+
+ )) {} else {UnityFail( (((" Expected Non-NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(433))));};
+
+  UnityAssertEqualNumber((UNITY_INT)((141)), (UNITY_INT)((list->head->data->x)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(434), UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((UNITY_INT)((156)), (UNITY_INT)((list->head->data->y)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(435), UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualString((const char*)(("Philippines")), (const char*)((list->head->data->place)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(436));
+
+  UnityAssertEqualNumber((UNITY_INT)((135)), (UNITY_INT)((list->head->next->data->x)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(437), UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((UNITY_INT)((109)), (UNITY_INT)((list->head->next->data->y)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(438), UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((UNITY_INT)(("USA")), (UNITY_INT)((list->head->next->data->place)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(439), UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((UNITY_INT)((42)), (UNITY_INT)((list->tail->data->x)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(440), UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((UNITY_INT)((109)), (UNITY_INT)((list->tail->data->y)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(441), UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((UNITY_INT)(("Korea")), (UNITY_INT)((list->tail->data->place)), (
+
+ ((void *)0)
+
+ ), (UNITY_UINT)(442), UNITY_DISPLAY_STYLE_INT);
+
+
+
+  free(A);
+
+  free(B);
+
+  free(C);
+
+  free(D);
+
+  free(E);
+
+  free(F);
+
+  free(G);
+
+  free(H);
+
+}
+
+void test_Convex_Hull_In_Graham_Scan_Insert_10_Points_In_Worst_Case_Scenario_To_Avl_For_Sorting_Expect_Convex_Hull_(void)
 
 {
 
@@ -806,31 +1082,33 @@ void test_Convex_Hull_Inser_10_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_W
 
   Point *reverse = TopHalf(&root,16,10);
 
-  testAssertEqualPoint(34,124,"KL",reverse,384);
+  testAssertEqualPoint(34,124,"KL",reverse,548);
 
-  testAssertEqualPoint(45,147,"Selangor",reverse+1,385);
+  testAssertEqualPoint(45,147,"Selangor",reverse+1,549);
 
-  testAssertEqualPoint(54,109,"Ipoh",reverse+2,386);
+  testAssertEqualPoint(54,109,"Ipoh",reverse+2,550);
 
-  testAssertEqualPoint(66,157,"Kelantan",reverse+3,387);
+  testAssertEqualPoint(66,157,"Kelantan",reverse+3,551);
 
-  testAssertEqualPoint(71,124,"Pahang",reverse+4,388);
+  testAssertEqualPoint(71,124,"Pahang",reverse+4,552);
 
-  testAssertEqualPoint(82,169,"Penang",reverse+5,389);
+  testAssertEqualPoint(82,169,"Penang",reverse+5,553);
 
-  testAssertEqualPoint(88,124,"Kuantan",reverse+6,390);
+  testAssertEqualPoint(88,124,"Kuantan",reverse+6,554);
 
-  testAssertEqualPoint(98,184,"Kedah",reverse+7,391);
+  testAssertEqualPoint(98,184,"Kedah",reverse+7,555);
 
-  testAssertEqualPoint(108,144,"Perak",reverse+8,392);
+  testAssertEqualPoint(108,144,"Perak",reverse+8,556);
 
-  testAssertEqualPoint(120,200,"Malacca",reverse+9,393);
+  testAssertEqualPoint(120,200,"Malacca",reverse+9,557);
 
 
 
-  int n = 9;
+  int n = 10;
 
   Point BackwardOrder[n];
+
+  n--;
 
   BackwardOrder[0].x = (reverse+n)->x;
 
@@ -838,7 +1116,7 @@ void test_Convex_Hull_Inser_10_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_W
 
   BackwardOrder[0].place = (reverse+n)->place;
 
-  for(i=1 ; i<10 ; i++)
+  for(i=1 ; i<11 ; i++)
 
   {
 
@@ -852,43 +1130,45 @@ void test_Convex_Hull_Inser_10_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_W
 
   }
 
-  LinkedList *list = BottomHalf(BackwardOrder,22);
+  n = 10;
+
+  LinkedList *list = BottomHalf(BackwardOrder,n);
 
   if (((((Point*)(list->head->data))) != 
 
  ((void *)0)
 
- )) {} else {UnityFail( (((" Expected Non-NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(408))));};
+ )) {} else {UnityFail( (((" Expected Non-NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(574))));};
 
   UnityAssertEqualNumber((UNITY_INT)((120)), (UNITY_INT)((list->head->data->x)), (
 
  ((void *)0)
 
- ), (UNITY_UINT)(409), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(575), UNITY_DISPLAY_STYLE_INT);
 
   UnityAssertEqualNumber((UNITY_INT)((108)), (UNITY_INT)((list->head->next->data->x)), (
 
  ((void *)0)
 
- ), (UNITY_UINT)(410), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(576), UNITY_DISPLAY_STYLE_INT);
 
   UnityAssertEqualNumber((UNITY_INT)((88)), (UNITY_INT)((list->head->next->next->data->x)), (
 
  ((void *)0)
 
- ), (UNITY_UINT)(411), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(577), UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((UNITY_INT)((71)), (UNITY_INT)((list->head->next->next->next->data->x)), (
+  UnityAssertEqualNumber((UNITY_INT)((54)), (UNITY_INT)((list->head->next->next->next->data->x)), (
 
  ((void *)0)
 
- ), (UNITY_UINT)(412), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(578), UNITY_DISPLAY_STYLE_INT);
 
   UnityAssertEqualNumber((UNITY_INT)((34)), (UNITY_INT)((list->tail->data->x)), (
 
  ((void *)0)
 
- ), (UNITY_UINT)(413), UNITY_DISPLAY_STYLE_INT);
+ ), (UNITY_UINT)(579), UNITY_DISPLAY_STYLE_INT);
 
 
 

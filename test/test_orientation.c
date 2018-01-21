@@ -175,28 +175,34 @@ void test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_And_Remove(void)
   free(point3);
 }
 
-// void test_Convex_Hull_Insert_2_Points_To_Avl_For_Sorting_Expect_1_Point_in_LinkedList_since_Convex_Hull_Is_Not_Possible(void)
-// {
-//   Point *p1 = pointCreate(2,0,"KL");
-//   Point *p2 = pointCreate(1,1,"Selangor");
-//
-//   Node *point1 = (Node *)malloc(sizeof(Node));
-//   Node *point2 = (Node *)malloc(sizeof(Node));
-//   createNodeForPoints(point1,p1);
-//   createNodeForPoints(point2,p2);
-//
-//   Node *root = point2;
-//   avladdPoint(&root,point1);
-//
-//   TopHalf(&root,2,2);
-//
-//
-//   free(point1);
-//   free(point2);
-// }
+void test_Convex_Hull_Insert_2_Points_To_Avl_For_Sorting_Expect_1_Point_in_LinkedList_since_Convex_Hull_Is_Not_Possible(void)
+{
+  Point *p1 = pointCreate(2,0,"KL");
+  Point *p2 = pointCreate(1,1,"Selangor");
+
+  Node *point1 = (Node *)malloc(sizeof(Node));
+  Node *point2 = (Node *)malloc(sizeof(Node));
+  createNodeForPoints(point1,p1);
+  createNodeForPoints(point2,p2);
+
+  Node *root = point2;
+  avladdPoint(&root,point1);
+
+  Try
+  {
+    TopHalf(&root,2,2);
+  }
+  Catch(ex)
+  {
+    dumpException(ex);
+  }
+
+  free(point1);
+  free(point2);
+}
 
 
-void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Same_X_Expect_Convex_Hull_In_LinkedList_For_TopHalf(void)
+void test_Convex_Hull_In_Graham_Scan_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Same_X_Expect_Convex_Hull(void)
 {
   int i;
   Point *p1 = pointCreate(2,0,"KL");
@@ -230,6 +236,7 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Sam
   }
   Catch(ex)
   {
+    dumpException(ex);
     Item *item = (Item*)malloc(sizeof(Item));
     createItem(item,point5->data,NULL);
     LinkedList *check = (LinkedList*)malloc(sizeof(LinkedList));
@@ -245,19 +252,21 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Sam
   TEST_ASSERT_EQUAL_POINT(2,0,"KL",reverse+2);
   TEST_ASSERT_EQUAL_POINT(3,-1,"Kelantan",reverse+3);
   TEST_ASSERT_EQUAL_POINT(5,-2,"Johor",reverse+4);
-  int n = 4;
+  int n = 5;
   Point BackwardOrder[n];
+  n--;
   BackwardOrder[0].x = (reverse+n)->x;
   BackwardOrder[0].y = (reverse+n)->y;
   BackwardOrder[0].place = (reverse+n)->place;
-  for(i=1 ; i<5 ; i++)
+  for(i=1 ; i<6 ; i++)
   {
     n--;
     BackwardOrder[i].x = (reverse+n)->x;
     BackwardOrder[i].y = (reverse+n)->y;
     BackwardOrder[i].place = (reverse+n)->place;
   }
-  LinkedList *list = BottomHalf(BackwardOrder,2);
+  n = 5;
+  LinkedList *list = BottomHalf(BackwardOrder,n);
   TEST_ASSERT_EQUAL(5,list->head->data->x);
   TEST_ASSERT_EQUAL(3,list->head->next->data->x);
   TEST_ASSERT_EQUAL(0,list->tail->data->x);
@@ -270,7 +279,7 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Sam
   free(point6);
 }
 
-void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList_For_TopHalf(void)
+void test_Convex_Hull_In_Graham_Scan_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_(void)
 {
   int i;
   Point *p1 = pointCreate(2,0,"KL");
@@ -308,23 +317,24 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_L
   TEST_ASSERT_EQUAL_POINT(4,0,"Pahang",reverse+4);
   TEST_ASSERT_EQUAL_POINT(5,-2,"Johor",reverse+5);
 
-  int n = 5;
+  int n = 6;
   Point BackwardOrder[n];
+  n--;
   BackwardOrder[0].x = (reverse+n)->x;
   BackwardOrder[0].y = (reverse+n)->y;
   BackwardOrder[0].place = (reverse+n)->place;
-  for(i=1 ; i<6 ; i++)
+  for(i=1 ; i<7 ; i++)
   {
     n--;
     BackwardOrder[i].x = (reverse+n)->x;
     BackwardOrder[i].y = (reverse+n)->y;
     BackwardOrder[i].place = (reverse+n)->place;
   }
-
-  LinkedList *list = BottomHalf(BackwardOrder,6);
-    TEST_ASSERT_EQUAL(5,list->head->data->x);
-    TEST_ASSERT_EQUAL(3,list->head->next->data->x);
-    TEST_ASSERT_EQUAL(0,list->tail->data->x);
+  n = 6;
+  LinkedList *list = BottomHalf(BackwardOrder,n);
+  TEST_ASSERT_EQUAL(5,list->head->data->x);
+  TEST_ASSERT_EQUAL(3,list->head->next->data->x);
+  TEST_ASSERT_EQUAL(0,list->tail->data->x);
 
   free(point1);
   free(point2);
@@ -334,7 +344,161 @@ void test_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_L
   free(point6);
 }
 
-void xtest_Convex_Hull_Inser_10_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_Worst_Case_In_LinkedList_For_TopHalf(void)
+/**               (58,170)                     (130,170)
+  *                   /x-------------------------x
+  *                  /                           \
+  *                 /                             \
+  *                /                               \
+  *               /                                 \
+  *              /                                   \
+  *             /                                     \
+  *            /                                       \
+  *           /                        x                x(141,156)
+  *          /           x          (99,160)           /
+  *         /        (67,148)                         /
+  *        /                                         /
+  *       /                                         /
+  *      /                                x        /
+  *     /                            (120,120)    /
+  *    /x----------------------------------------x
+  *  (42,109)                                 (135,109)
+  *
+  *
+  *
+  *
+  **/
+void test_Convex_Hull_In_Graham_Scan_Insert_8_Points_To_Avl_For_Sorting_Expect_Convex_Hull_(void)
+{
+  int i;
+  Point *p1 = pointCreate(58,170,"Japan");
+  Point *p2 = pointCreate(130,170,"Malaysia");
+  Point *p3 = pointCreate(141,156,"Philippines");
+  Point *p4 = pointCreate(135,109,"USA");
+  Point *p5 = pointCreate(42,109,"Korea");
+  Point *p6 = pointCreate(67,148,"Brunei");
+  Point *p7 = pointCreate(99,160,"Saudi Arabia");
+  Point *p8 = pointCreate(120,120,"Thailand");
+
+  Node *A = (Node *)malloc(sizeof(Node));
+  Node *B = (Node *)malloc(sizeof(Node));
+  Node *C = (Node *)malloc(sizeof(Node));
+  Node *D = (Node *)malloc(sizeof(Node));
+  Node *E = (Node *)malloc(sizeof(Node));
+  Node *F = (Node *)malloc(sizeof(Node));
+  Node *G = (Node *)malloc(sizeof(Node));
+  Node *H = (Node *)malloc(sizeof(Node));
+  createNodeForPoints(A,p1);
+  createNodeForPoints(B,p2);
+  createNodeForPoints(C,p3);
+  createNodeForPoints(D,p4);
+  createNodeForPoints(E,p5);
+  createNodeForPoints(F,p6);
+  createNodeForPoints(G,p7);
+  createNodeForPoints(H,p8);
+
+  Node *root = F;
+
+  avladdPoint(&root,A);
+  avladdPoint(&root,B);
+  avladdPoint(&root,C);
+  avladdPoint(&root,D);
+  avladdPoint(&root,E);
+  avladdPoint(&root,G);
+  avladdPoint(&root,H);
+  Point *reverse = TopHalf(&root,11,8);
+  TEST_ASSERT_EQUAL_POINT(42,109,"Korea",reverse);
+  TEST_ASSERT_EQUAL_POINT(58,170,"Japan",reverse+1);
+  TEST_ASSERT_EQUAL_POINT(67,148,"Brunei",reverse+2);
+  TEST_ASSERT_EQUAL_POINT(99,160,"Saudi Arabia",reverse+3);
+  TEST_ASSERT_EQUAL_POINT(120,120,"Thailand",reverse+4);
+  TEST_ASSERT_EQUAL_POINT(130,170,"Malaysia",reverse+5);
+  TEST_ASSERT_EQUAL_POINT(135,109,"USA",reverse+6);
+  TEST_ASSERT_EQUAL_POINT(141,156,"Philippines",reverse+7);
+
+  int n = 8;
+  Point BackwardOrder[n];
+  n--;
+  BackwardOrder[0].x = (reverse+n)->x;
+  BackwardOrder[0].y = (reverse+n)->y;
+  BackwardOrder[0].place = (reverse+n)->place;
+  for(i=1 ; i<9 ; i++)
+  {
+    n--;
+    BackwardOrder[i].x = (reverse+n)->x;
+    BackwardOrder[i].y = (reverse +n)->y;
+    BackwardOrder[i].place = (reverse+n)->place;
+  }
+  n = 8;
+  LinkedList *list = BottomHalf(BackwardOrder,n);
+  TEST_ASSERT_NOT_NULL((Point*)(list->head->data));
+  TEST_ASSERT_EQUAL(141,list->head->data->x);
+  TEST_ASSERT_EQUAL(156,list->head->data->y);
+  TEST_ASSERT_EQUAL_STRING("Philippines",list->head->data->place);
+  TEST_ASSERT_EQUAL(135,list->head->next->data->x);
+  TEST_ASSERT_EQUAL(109,list->head->next->data->y);
+  TEST_ASSERT_EQUAL("USA",list->head->next->data->place);
+  TEST_ASSERT_EQUAL(42,list->tail->data->x);
+  TEST_ASSERT_EQUAL(109,list->tail->data->y);
+  TEST_ASSERT_EQUAL("Korea",list->tail->data->place);
+
+  free(A);
+  free(B);
+  free(C);
+  free(D);
+  free(E);
+  free(F);
+  free(G);
+  free(H);
+}
+
+/**                                                              x(120,200)
+                                                               /
+                                                             /  |
+                                                           /    |
+                                                         /      |
+                                                       /        |
+                                                     /          |
+                                                   /            |
+                                                 /     x        |
+                                               /   (98,184)     |
+                                             /                 |
+                                           /                   |
+                                         /                     |
+                                       /                       |
+                                     /                        |
+                                   /              x           |
+                                 /            (82,169)        |
+                               /                              |
+                             /                                |
+                           /                                  |
+                         /    x                               |
+                       /   (66,157)                           |
+                     /                                        |
+                   /                                          |
+                 /                                           x(108,144)
+       (45,147)/                                            |
+  *        x/                                              |
+  *        |                                               |
+  *       |                                               |
+  *      |                                                |
+  *      |                                                |
+  *     |                                                |
+  *     |                                               |
+  *     |                                               |
+  *    |                                               |
+  *    |                                               |
+  *    |                                               |
+  *    |                                               |
+  *   |                                                |
+  *   |                                                |
+  *   |                                  x             x(88,124)
+  *   x _________________            (71,124)          |
+  *  (34,124)            \x----------------------------
+                      (54,109)
+
+  **/
+
+void test_Convex_Hull_In_Graham_Scan_Insert_10_Points_In_Worst_Case_Scenario_To_Avl_For_Sorting_Expect_Convex_Hull_(void)
 {
   int i;
   Point *p1 = pointCreate(34,124,"KL");
@@ -392,19 +556,21 @@ void xtest_Convex_Hull_Inser_10_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_
   TEST_ASSERT_EQUAL_POINT(108,144,"Perak",reverse+8);
   TEST_ASSERT_EQUAL_POINT(120,200,"Malacca",reverse+9);
 
-  int n = 9;
+  int n = 10;
   Point BackwardOrder[n];
+  n--;
   BackwardOrder[0].x = (reverse+n)->x;
   BackwardOrder[0].y = (reverse+n)->y;
   BackwardOrder[0].place = (reverse+n)->place;
-  for(i=1 ; i<10 ; i++)
+  for(i=1 ; i<11 ; i++)
   {
     n--;
     BackwardOrder[i].x = (reverse+n)->x;
     BackwardOrder[i].y = (reverse+n)->y;
     BackwardOrder[i].place = (reverse+n)->place;
   }
-  LinkedList *list = BottomHalf(BackwardOrder,22);
+  n = 10;
+  LinkedList *list = BottomHalf(BackwardOrder,n);
   TEST_ASSERT_NOT_NULL((Point*)(list->head->data));
   TEST_ASSERT_EQUAL(120,list->head->data->x);
   TEST_ASSERT_EQUAL(108,list->head->next->data->x);
@@ -423,110 +589,3 @@ void xtest_Convex_Hull_Inser_10_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_
   free(I);
   free(J);
 }
-
-// void xtest_Convex_Hull_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_LinkedList_For_BottomHalf(void)
-// {
-//   Point *p1 = pointCreate(2,0,"KL");
-//   Point *p2 = pointCreate(1,1,"Selangor");
-//   Point *p3 = pointCreate(0,1,"Ipoh");
-//   Point *p4 = pointCreate(3,-1,"Kelantan");
-//   Point *p5 = pointCreate(4,0,"Pahang");
-//   Point *p6 = pointCreate(5,-2,"Johor");
-//
-//   Node *point1 = (Node *)malloc(sizeof(Node));
-//   Node *point2 = (Node *)malloc(sizeof(Node));
-//   Node *point3 = (Node *)malloc(sizeof(Node));
-//   Node *point4 = (Node *)malloc(sizeof(Node));
-//   Node *point5 = (Node *)malloc(sizeof(Node));
-//   Node *point6 = (Node *)malloc(sizeof(Node));
-//   createNodeForPoints(point1,p1);
-//   createNodeForPoints(point2,p2);
-//   createNodeForPoints(point3,p3);
-//   createNodeForPoints(point4,p4);
-//   createNodeForPoints(point5,p5);
-//   createNodeForPoints(point6,p6);
-//
-//   Node *root = point3;
-//
-//   avladdPoint(&root,point1);
-//   avladdPoint(&root,point2);
-//   avladdPoint(&root,point4);
-//   avladdPoint(&root,point5);
-//   avladdPoint(&root,point6);
-//   LinkedList *list = BottomHalf(&root,6);
-//   TEST_ASSERT_NOT_NULL((Point*)(list->head->data));
-//   TEST_ASSERT_EQUAL(5,list->head->data->x);
-//   TEST_ASSERT_EQUAL(3,list->head->next->data->x);
-//   TEST_ASSERT_EQUAL(0,list->tail->data->x);
-//
-//   free(point1);
-//   free(point2);
-//   free(point3);
-//   free(point4);
-//   free(point5);
-//   free(point6);
-// }
-
-// void xtest_Convex_Hull_Inser_10_Points_To_Avl_For_Sorting_Expect_Convex_Hull_In_Worst_Case_In_LinkedList_For_BottomHalf(void)
-// {
-//   Point *p1 = pointCreate(34,124,"KL");
-//   Point *p2 = pointCreate(45,147,"Selangor");
-//   Point *p3 = pointCreate(54,109,"Ipoh");
-//   Point *p4 = pointCreate(66,157,"Kelantan");
-//   Point *p5 = pointCreate(71,124,"Pahang");
-//   Point *p6 = pointCreate(82,169,"Penang");
-//   Point *p7 = pointCreate(88,124,"Kuantan");
-//   Point *p8 = pointCreate(98,184,"Kedah");
-//   Point *p9 = pointCreate(108,144,"Perak");
-//   Point *p10 = pointCreate(120,200,"Malacca");
-//
-//   Node *A = (Node *)malloc(sizeof(Node));
-//   Node *B = (Node *)malloc(sizeof(Node));
-//   Node *C = (Node *)malloc(sizeof(Node));
-//   Node *D = (Node *)malloc(sizeof(Node));
-//   Node *E = (Node *)malloc(sizeof(Node));
-//   Node *F = (Node *)malloc(sizeof(Node));
-//   Node *G = (Node *)malloc(sizeof(Node));
-//   Node *H = (Node *)malloc(sizeof(Node));
-//   Node *I = (Node *)malloc(sizeof(Node));
-//   Node *J = (Node *)malloc(sizeof(Node));
-//   createNodeForPoints(A,p1);
-//   createNodeForPoints(B,p2);
-//   createNodeForPoints(C,p3);
-//   createNodeForPoints(D,p4);
-//   createNodeForPoints(E,p5);
-//   createNodeForPoints(F,p6);
-//   createNodeForPoints(G,p7);
-//   createNodeForPoints(H,p8);
-//   createNodeForPoints(I,p9);
-//   createNodeForPoints(J,p10);
-//
-//   Node *root = F;
-//
-//   avladdPoint(&root,A);
-//   avladdPoint(&root,B);
-//   avladdPoint(&root,C);
-//   avladdPoint(&root,D);
-//   avladdPoint(&root,E);
-//   avladdPoint(&root,G);
-//   avladdPoint(&root,H);
-//   avladdPoint(&root,I);
-//   avladdPoint(&root,J);
-//   LinkedList *list = BottomHalf(&root,14);
-//   TEST_ASSERT_NOT_NULL((Point*)(list->head->data));
-//   TEST_ASSERT_EQUAL(120,list->head->data->x);
-//   TEST_ASSERT_EQUAL(108,list->head->next->data->x);
-//   TEST_ASSERT_EQUAL(88,list->head->next->next->data->x);
-//   TEST_ASSERT_EQUAL(54,list->head->next->next->next->data->x);
-//   TEST_ASSERT_EQUAL(34,list->tail->data->x);
-//   free(A);
-//   free(B);
-//   free(C);
-//   free(D);
-//   free(E);
-//   free(F);
-//   free(G);
-//   free(H);
-//   free(I);
-//   free(J);
-// }

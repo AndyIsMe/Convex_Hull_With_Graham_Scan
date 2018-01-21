@@ -1,0 +1,79 @@
+---
+:source:
+  :path: test
+  :file: test_orientation.c
+:successes:
+- :test: test_orientation_expect_anticlockwise
+  :line: 22
+  :message: ''
+- :test: test_orientation_expect_clockwise
+  :line: 32
+  :message: ''
+- :test: test_orientation_expect_colinear
+  :line: 42
+  :message: ''
+- :test: test_Convex_Hull_Create_Node
+  :line: 52
+  :message: ''
+- :test: test_Convex_Hull_Insert_To_Avl_For_Sorting
+  :line: 65
+  :message: ''
+- :test: test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting
+  :line: 86
+  :message: ''
+- :test: test_Convex_Hull_Insert_A_Few_Points_To_Avl_With_Same_X_Coordinate
+  :line: 112
+  :message: ''
+- :test: test_Convex_Hull_Insert_A_Few_Points_To_Avl_For_Sorting_And_Remove
+  :line: 150
+  :message: ''
+- :test: test_Convex_Hull_Insert_2_Points_To_Avl_For_Sorting_Expect_1_Point_in_LinkedList_since_Convex_Hull_Is_Not_Possible
+  :line: 178
+  :message: ''
+- :test: test_Convex_Hull_In_Graham_Scan_Insert_6_Points_To_Avl_For_Sorting_Where_2_Points_With_Same_X_Expect_Convex_Hull
+  :line: 205
+  :message: ''
+- :test: test_Convex_Hull_In_Graham_Scan_Insert_6_Points_To_Avl_For_Sorting_Expect_Convex_Hull_
+  :line: 282
+  :message: ''
+- :test: test_Convex_Hull_In_Graham_Scan_Insert_8_Points_To_Avl_For_Sorting_Expect_Convex_Hull_
+  :line: 370
+  :message: ''
+- :test: test_Convex_Hull_In_Graham_Scan_Insert_10_Points_In_Worst_Case_Scenario_To_Avl_For_Sorting_Expect_Convex_Hull_
+  :line: 501
+  :message: ''
+:failures: []
+:ignores: []
+:counts:
+  :total: 13
+  :passed: 13
+  :failed: 0
+  :ignored: 0
+:stdout:
+- Convex Hull not possible
+- " (err=100)"
+- Found nodes with the same x coordinates
+- ''
+- " (err=100)"
+- Convex Hull(Top Half) coordinates :(0,1)[Ipoh]
+- Convex Hull(Top Half) coordinates :(1,1)[Selangor]
+- Convex Hull(Top Half) coordinates :(5,-2)[Johor]
+- ''
+- ''
+- Convex Hull(Top Half) coordinates :(0,1)[Ipoh]
+- Convex Hull(Top Half) coordinates :(1,1)[Selangor]
+- Convex Hull(Top Half) coordinates :(4,0)[Pahang]
+- Convex Hull(Top Half) coordinates :(5,-2)[Johor]
+- ''
+- ''
+- Convex Hull(Top Half) coordinates :(42,109)[Korea]
+- Convex Hull(Top Half) coordinates :(58,170)[Japan]
+- Convex Hull(Top Half) coordinates :(130,170)[Malaysia]
+- Convex Hull(Top Half) coordinates :(141,156)[Philippines]
+- ''
+- ''
+- Convex Hull(Top Half) coordinates :(34,124)[KL]
+- Convex Hull(Top Half) coordinates :(45,147)[Selangor]
+- Convex Hull(Top Half) coordinates :(120,200)[Malacca]
+- ''
+- ''

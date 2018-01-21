@@ -82,7 +82,7 @@ int avl_Insert(Node **rootPtr, Node *nodeToAdd,Compare compareFunc){
                                                   }
       else
       {
-        Throw(createException("Found nodes with the same x coordinates",NODE_DUPLICATE_EXIST));
+        Throw(createException("Found nodes with the same x coordinates\n\n",NODE_DUPLICATE_EXIST));
       }
         }
       if((*rootPtr)->balanceFactor >= 2)
