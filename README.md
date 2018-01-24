@@ -19,16 +19,16 @@ if there are at least 3 coordinates to determine the convexity.
 # Coding_Methodology
 The orientation among 3 points will be found through this function :
 
-  int orientation(Point *p,Point *q,Point *r);
+    int orientation(Point *p,Point *q,Point *r);
 
 Convex Hull of the top part among the points will be be printed out through :
 
-  Point *TopHalf(Node **root,int n,int m);
+    Point *TopHalf(Node **root,int n,int m);
 
 In this function , a search function along with a compare function will be implemented to find the smallest X coordinate : \n
 
     Node *SearchMinX(Node **rootPtr);
-    int CompareX(Point *p, Node *refNode);
+      int CompareX(Point *p, Node *refNode);
 
 Right after the it is found , the node will be remove so that the next smallest X coordinate can be found.
 
