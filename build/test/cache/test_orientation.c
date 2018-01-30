@@ -258,11 +258,11 @@ void test_Convex_Hull_Insert_A_Few_Points_To_Avl_With_Same_X_Coordinate(void)
 
   { jmp_buf *PrevFrame, NewFrame; unsigned int MY_ID = (0); PrevFrame = CExceptionFrames[MY_ID].pFrame; CExceptionFrames[MY_ID].pFrame = (jmp_buf*)(&NewFrame); CExceptionFrames[MY_ID].Exception = ((ExceptionPtr)0x5A5A5A5A); ; if (
 
- _setjmp((
+ _setjmp3((
 
  NewFrame
 
- ), __builtin_frame_address (0)) 
+ ), ((void *)0)) 
 
  == 0) { if (1)
 
@@ -422,11 +422,11 @@ void test_Convex_Hull_Insert_2_Points_To_Avl_For_Sorting_Expect_1_Point_in_Linke
 
   { jmp_buf *PrevFrame, NewFrame; unsigned int MY_ID = (0); PrevFrame = CExceptionFrames[MY_ID].pFrame; CExceptionFrames[MY_ID].pFrame = (jmp_buf*)(&NewFrame); CExceptionFrames[MY_ID].Exception = ((ExceptionPtr)0x5A5A5A5A); ; if (
 
- _setjmp((
+ _setjmp3((
 
  NewFrame
 
- ), __builtin_frame_address (0)) 
+ ), ((void *)0)) 
 
  == 0) { if (1)
 
@@ -514,11 +514,11 @@ void test_Convex_Hull_In_Graham_Scan_Insert_6_Points_To_Avl_For_Sorting_Where_2_
 
   { jmp_buf *PrevFrame, NewFrame; unsigned int MY_ID = (0); PrevFrame = CExceptionFrames[MY_ID].pFrame; CExceptionFrames[MY_ID].pFrame = (jmp_buf*)(&NewFrame); CExceptionFrames[MY_ID].Exception = ((ExceptionPtr)0x5A5A5A5A); ; if (
 
- _setjmp((
+ _setjmp3((
 
  NewFrame
 
- ), __builtin_frame_address (0)) 
+ ), ((void *)0)) 
 
  == 0) { if (1)
 
